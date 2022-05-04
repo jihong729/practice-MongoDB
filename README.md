@@ -30,3 +30,54 @@ $db.products.updateOne({_id:1}, {$set: {stock:32}})
 
 3-4: DELETE
 $db.products.deleteOne({_id:2})
+
+
+4. Relationships in MongoDB
+
+4-1: You can embed documents inside each other!
+
+db.products.insert(
+  {
+    _id:2,
+    name: "Pencil",
+    price: 0.80,
+    stock: 12,
+    reviews: [
+    {
+      authorName: "James",
+      rating: 5,
+      review: "Fantastic!"
+    },
+    {
+      authorName: "Jono",
+      rating: 5,
+      review: "The best pencil ever!"
+    }
+    ]
+  }
+  )
+
+  4-2: You can make a seperate collection
+
+  Products collection
+  
+  {
+    _id:1,
+    name: "Pen",
+    price: 1.20,
+    stock: 32
+  }
+
+  {
+    _id:2,
+    name: "Pencil",
+    price: 0.80,
+    stock: 12
+  }
+
+  Orders collection: uses the _id value from the products collection
+
+  {
+    orderNumber: 3243,
+    productsOrdered: [1,2]
+  }
